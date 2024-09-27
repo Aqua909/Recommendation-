@@ -1,38 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anime Paradise - Anime Recommendation</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <h1>Anime Paradise</h1>
-    <h2>Anime Recommendation</h2>
-  </header>
+<main>
+  <section id="login-section">
+    <h3>Admin Login</h3>
+    <form id="loginForm">
+      <input type="password" id="adminPassword" placeholder="Enter Admin Password" required>
+      <button type="submit">Login</button>
+    </form>
+  </section>
 
-  <main>
-    <section id="anime-list">
-      <!-- Anime recommendations will be dynamically added here -->
-    </section>
-
-    <!-- Admin section -->
-    <section id="admin-section" style="display:none;">
-      <h3>Add a New Recommendation</h3>
-      <form id="animeForm">
-        <input type="text" id="animeTitle" placeholder="Anime Title" required>
-        <input type="text" id="animeGenre" placeholder="Anime Genre" required>
-        <input type="url" id="animeImage" placeholder="Image URL" required>
-        <button type="submit">Add Anime</button>
-      </form>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2024 Anime Paradise</p>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+  <section id="admin-section" style="display:none;">
+    <h3>Add a New Recommendation</h3>
+    <form id="animeForm">
+      <input type="text" id="animeTitle" placeholder="Anime Title" required>
+      <input type="text" id="animeGenre" placeholder="Anime Genre" required>
+      <input type="url" id="animeImage" placeholder="Image URL" required>
+      <button type="submit">Add Anime</button>
+    </form>
+  </section>
+  
+  <section id="anime-list">
+    <!-- Anime recommendations will be dynamically added here -->
+  </section>
+</main>
