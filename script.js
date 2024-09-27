@@ -1,118 +1,100 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+const adminPassword = "YourSecretPassword"; // Replace with your desired password
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  color: #333;
-  text-align: center;
-}
+// Check if admin is already logged in (persist login state using localStorage)
+let isAdmin = localStorage.getItem("isAdmin") === "true";
 
-header {
-  background-color: #ff4757;
-  color: white;
-  padding: 20px 0;
-}
+// Show/hide the admin section based on login state
+document.addEventListener("DOMContentLoaded", function() {
+  if (isAdmin) {
+    document.getElementById("admin-section").style.display = "block";
+    document.getElementById("login-section").style.display = "none";
+  } else {
+    document.getElementById("admin-section").style.display = "none";
+    document.getElementById("login-section").style.display = "block";
+  }
 
-h1 {
-  font-size: 3rem;
-}
+  // Load saved anime recommendations from localStorage
+  const savedAnimes = JSON.parse(localStorage.getItem("animeList")) || [];
+  savedAnimes.forEach(function(anime) {
+    addAnimeToList(anime.title, anime.genre, anime.image, isAdmin);
+  });
+});
 
-h2 {
-  font-size: 1.5rem;
-}
+// Handle admin login
+document.getElementById("loginForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  const enteredPassword = document.getElementById("adminPassword").value;
 
-main {
-  padding: 20px;
-}
+  if (enteredPassword === adminPassword) {
+    isAdmin = true;
+    localStorage.setItem("isAdmin", "true");
+    document.getElementById("admin-section").style.display = "block";
+    document.getElementById("login-section").style.display = "none";
+  } else {
+    alert("Incorrect password!");
+  }
+});
 
-#anime-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 20px;
-}
+// Handle anime recommendation form submission (only for admin)
+document.getElementById("animeForm").addEventListener("submit", function(event) {
+  event.preventDefault();
 
-.anime-card {
-  background-color: white;
-  width: 300px;
-  padding: 15px;
-  margin: 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+  if (!isAdmin) return; // Only allow submission if the user is admin
 
-.anime-card img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-}
+  const title = document.getElementById("animeTitle").value;
+  const genre = document.getElementById("animeGenre").value;
+  const image = document.getElementById("animeImage").value;
 
-.anime-card h3 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
+  // Add new anime to the list
+  addAnimeToList(title, genre, image, true);
 
-.anime-card p {
-  font-size: 1rem;
-}
+  // Save the new anime recommendation to localStorage
+  const savedAnimes = JSON.parse(localStorage.getItem("animeList")) || [];
+  savedAnimes.push({ title: title, genre: genre, image: image });
+  localStorage.setItem("animeList", JSON.stringify(savedAnimes));
 
-.anime-card .genre {
-  font-style: italic;
-  color: #777;
-}
+  // Clear form inputs
+  document.getElementById("animeTitle").value = '';
+  document.getElementById("animeGenre").value = '';
+  document.getElementById("animeImage").value = '';
+});
 
-#add-anime {
-  margin-top: 40px;
-}
+// Function to add anime to the DOM
+function addAnimeToList(title, genre, image, isAdmin) {
+  const animeList = document.getElementById("anime-list");
+  const animeCard = document.createElement("div");
+  animeCard.classList.add("anime-card");
 
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  const animeTitle = document.createElement("h3");
+  animeTitle.textContent = title;
 
-input, textarea {
-  width: 80%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-}
+  const animeGenre = document.createElement("p");
+  animeGenre.textContent = `Genre: ${genre}`;
+  animeGenre.classList.add("genre");
 
-button {
-  padding: 10px 20px;
-  background-color: #ff4757;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
+  const animeImage = document.createElement("img");
+  animeImage.src = image;
 
-button:hover {
-  background-color: #e84118;
-}
+  animeCard.appendChild(animeImage);
+  animeCard.appendChild(animeTitle);
+  animeCard.appendChild(animeGenre);
 
-footer {
-  margin-top: 40px;
-  padding: 20px;
-  background-color: #ff4757;
-  color: white;
-}
+  if (isAdmin) {
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.classList.add("delete-btn");
+    deleteButton.onclick = function() {
+      // Remove from DOM
+      animeCard.remove();
 
-.delete-btn {
-  background-color: red;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 5px;
-  margin-top: 10px;
-  cursor: pointer;
-}
+      // Remove from localStorage
+      const savedAnimes = JSON.parse(localStorage.getItem("animeList"));
+      const updatedAnimes = savedAnimes.filter(anime => anime.title !== title);
+      localStorage.setItem("animeList", JSON.stringify(updatedAnimes));
+    };
 
-.delete-btn:hover {
-  background-color: darkred;
+    animeCard.appendChild(deleteButton);
+  }
+
+  animeList.appendChild(animeCard);
 }
