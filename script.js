@@ -1,4 +1,4 @@
-const adminPassword = "ch750805"; // Replace with your desired admin password
+const adminPassword = "itzarataka"; // Replace with your desired admin password
 
 // Check if user is already logged in (stored in localStorage)
 let isAdmin = localStorage.getItem("isAdmin") === "true";
