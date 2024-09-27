@@ -1,8 +1,9 @@
-document.addEventListener("DOMContentLoaded", function() {
-  const adminPassword = "itzarataka"; // Set your admin password
-  let isAdmin = localStorage.getItem("isAdmin") === "true";
-  let isMember = localStorage.getItem("isMember") === "true";
+const adminPassword = "itzarataka"; // Set your admin password
 
+let isAdmin = localStorage.getItem("isAdmin") === "true";
+let isMember = localStorage.getItem("isMember") === "true";
+
+document.addEventListener("DOMContentLoaded", function() {
   if (isAdmin) {
     document.getElementById("admin-section").style.display = "block";
     document.getElementById("login-choice").style.display = "none";
