@@ -1,33 +1,41 @@
-<main>
-  <!-- Choose to log in as Admin or Member -->
-  <section id="login-choice">
-    <h3>Login as</h3>
-    <button id="loginAsAdminBtn">Admin</button>
-    <button id="loginAsMemberBtn">Member</button>
-  </section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime Paradise - Anime Recommendation</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <h1>Anime Paradise</h1>
+  <h2>Anime Recommendation</h2>
+  <main>
+    <section id="login-choice">
+      <h3>Login as</h3>
+      <button id="loginAsAdminBtn">Admin</button>
+      <button id="loginAsMemberBtn">Member</button>
+    </section>
 
-  <!-- Admin Login Form (hidden by default) -->
-  <section id="admin-login-section" style="display:none;">
-    <h3>Admin Login</h3>
-    <form id="adminLoginForm">
-      <input type="password" id="adminPassword" placeholder="Enter Admin Password" required>
-      <button type="submit">Login</button>
-    </form>
-  </section>
+    <section id="admin-login-section" style="display:none;">
+      <h3>Admin Login</h3>
+      <form id="adminLoginForm">
+        <input type="password" id="adminPassword" placeholder="Enter Admin Password" required>
+        <button type="submit">Login</button>
+      </form>
+    </section>
 
-  <!-- Admin Section (only visible to admin after login) -->
-  <section id="admin-section" style="display:none;">
-    <h3>Add a New Recommendation</h3>
-    <form id="animeForm">
-      <input type="text" id="animeTitle" placeholder="Anime Title" required>
-      <input type="text" id="animeGenre" placeholder="Anime Genre" required>
-      <input type="url" id="animeImage" placeholder="Image URL" required>
-      <button type="submit">Add Anime</button>
-    </form>
-  </section>
+    <section id="admin-section" style="display:none;">
+      <h3>Add a New Recommendation</h3>
+      <form id="animeForm">
+        <input type="text" id="animeTitle" placeholder="Anime Title" required>
+        <input type="text" id="animeGenre" placeholder="Anime Genre" required>
+        <input type="url" id="animeImage" placeholder="Image URL" required>
+        <button type="submit">Add Anime</button>
+      </form>
+    </section>
 
-  <!-- Anime list viewable by both admins and members -->
-  <section id="anime-list">
-    <!-- Anime recommendations will be dynamically added here -->
-  </section>
-</main>
+    <section id="anime-list"></section>
+  </main>
+</body>
+</html>
