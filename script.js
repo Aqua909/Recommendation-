@@ -1,16 +1,20 @@
-const adminPassword = "YourSecretPassword"; // Replace with your desired password
+const adminPassword = "ch750805"; // Replace with your desired admin password
 
-// Check if admin is already logged in (persist login state using localStorage)
+// Check if user is already logged in (stored in localStorage)
 let isAdmin = localStorage.getItem("isAdmin") === "true";
+let isMember = localStorage.getItem("isMember") === "true";
 
-// Show/hide the admin section based on login state
+// Handle page load: Show relevant sections based on login state
 document.addEventListener("DOMContentLoaded", function() {
   if (isAdmin) {
     document.getElementById("admin-section").style.display = "block";
-    document.getElementById("login-section").style.display = "none";
+    document.getElementById("login-choice").style.display = "none";
+    document.getElementById("admin-login-section").style.display = "none";
+  } else if (isMember) {
+    document.getElementById("login-choice").style.display = "none";
+    document.getElementById("admin-login-section").style.display = "none";
   } else {
-    document.getElementById("admin-section").style.display = "none";
-    document.getElementById("login-section").style.display = "block";
+    document.getElementById("login-choice").style.display = "block";
   }
 
   // Load saved anime recommendations from localStorage
@@ -20,8 +24,22 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
-// Handle admin login
-document.getElementById("loginForm").addEventListener("submit", function(event) {
+// Handle "Login as Admin" button click
+document.getElementById("loginAsAdminBtn").addEventListener("click", function() {
+  document.getElementById("admin-login-section").style.display = "block";
+  document.getElementById("login-choice").style.display = "none";
+});
+
+// Handle "Login as Member" button click
+document.getElementById("loginAsMemberBtn").addEventListener("click", function() {
+  isMember = true;
+  localStorage.setItem("isMember", "true");
+  document.getElementById("login-choice").style.display = "none";
+  document.getElementById("admin-login-section").style.display = "none";
+});
+
+// Handle admin login form submission
+document.getElementById("adminLoginForm").addEventListener("submit", function(event) {
   event.preventDefault();
   const enteredPassword = document.getElementById("adminPassword").value;
 
@@ -29,7 +47,7 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
     isAdmin = true;
     localStorage.setItem("isAdmin", "true");
     document.getElementById("admin-section").style.display = "block";
-    document.getElementById("login-section").style.display = "none";
+    document.getElementById("admin-login-section").style.display = "none";
   } else {
     alert("Incorrect password!");
   }
@@ -79,6 +97,7 @@ function addAnimeToList(title, genre, image, isAdmin) {
   animeCard.appendChild(animeTitle);
   animeCard.appendChild(animeGenre);
 
+  // Only admins can see the delete button
   if (isAdmin) {
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
