@@ -10,13 +10,17 @@
 <body>
   <h1>Anime Paradise</h1>
   <h2>Anime Recommendation</h2>
-  <main>
-    <section id="login-choice">
+  
+  <!-- Modal for Login Choice -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
       <h3>Login as</h3>
       <button id="loginAsAdminBtn">Admin</button>
       <button id="loginAsMemberBtn">Member</button>
-    </section>
+    </div>
+  </div>
 
+  <main style="display:none;">
     <section id="admin-login-section" style="display:none;">
       <h3>Admin Login</h3>
       <form id="adminLoginForm">
@@ -37,5 +41,11 @@
 
     <section id="anime-list"></section>
   </main>
+
+  <!-- Background Music -->
+  <audio id="backgroundMusic" loop>
+    <source src="https://www.youtube.com/watch?v=Rwzy6Qt8gq8" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 </body>
 </html>
