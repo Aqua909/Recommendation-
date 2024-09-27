@@ -1,85 +1,64 @@
-// Mock admin login check (change this to a real authentication mechanism)
-const isAdmin = true; // Change this to false to simulate a non-admin user
-
-// Load saved anime recommendations from localStorage
-document.addEventListener("DOMContentLoaded", function() {
-  const savedAnimes = JSON.parse(localStorage.getItem("animeList")) || [];
-  savedAnimes.forEach(function(anime) {
-    addAnimeToList(anime.title, anime.genre, anime.image, isAdmin);
-  });
-
-  // Show admin section if the user is the admin
-  if (isAdmin) {
-    document.getElementById("admin-section").style.display = "block";
-  }
-});
-
-document.getElementById("animeForm").addEventListener("submit", function(event) {
-  event.preventDefault();
-
-  const title = document.getElementById("animeTitle").value;
-  const genre = document.getElementById("animeGenre").value;
-  const image = document.getElementById("animeImage").value;
-
-  // Add new anime to the list
-  addAnimeToList(title, genre, image, true);
-
-  // Save the new anime recommendation to localStorage
-  const savedAnimes = JSON.parse(localStorage.getItem("animeList")) || [];
-  savedAnimes.push({ title: title, genre: genre, image: image });
-  localStorage.setItem("animeList", JSON.stringify(savedAnimes));
-
-  // Clear form inputs
-  document.getElementById("animeTitle").value = '';
-  document.getElementById("animeGenre").value = '';
-  document.getElementById("animeImage").value = '';
-});
-
-// Function to add anime to the DOM
-function addAnimeToList(title, genre, image, isAdmin) {
-  const animeList = document.getElementById("anime-list");
-  const animeCard = document.createElement("div");
-  animeCard.classList.add("anime-card");
-
-  const animeTitle = document.createElement("h3");
-  animeTitle.textContent = title;
-
-  const animeGenre = document.createElement("p");
-  animeGenre.textContent = `Genre: ${genre}`;
-  animeGenre.classList.add("genre");
-
-  const animeImage = document.createElement("img");
-  animeImage.src = image;
-
-  animeCard.appendChild(animeImage);
-  animeCard.appendChild(animeTitle);
-  animeCard.appendChild(animeGenre);
-
-  if (isAdmin) {
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "Delete";
-    deleteButton.classList.add("delete-btn");
-    deleteButton.onclick = function() {
-      // Remove from DOM
-      animeCard.remove();
-
-      // Remove from localStorage
-      const savedAnimes = JSON.parse(localStorage.getItem("animeList"));
-      const updatedAnimes = savedAnimes.filter(anime => anime.title !== title);
-      localStorage.setItem("animeList", JSON.stringify(updatedAnimes));
-    };
-
-    animeCard.appendChild(deleteButton);
-  }
-
-  animeList.appendChild(animeCard);
+body {
+  background-color: #000; /* Black background */
+  color: #fff; /* White text */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
 }
-#login-choice button {
+
+h1, h2, h3 {
+  color: #1E90FF; /* Dodger Blue for headings */
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.8); /* Dark background with opacity */
+}
+
+.modal-content {
+  background-color: #222; /* Dark gray for modal */
+  color: #fff; /* White text in modal */
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #1E90FF; /* Blue border for modal */
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+button {
+  background-color: #1E90FF; /* Blue buttons */
+  color: white; /* White text on buttons */
+  border: none;
   padding: 10px 20px;
   margin: 10px;
   cursor: pointer;
+  border-radius: 5px; /* Rounded corners for buttons */
 }
 
-#admin-login-section, #admin-section {
-  margin-top: 20px;
+button:hover {
+  background-color: #0D6EFD; /* Darker blue on hover */
+}
+
+input[type="text"],
+input[type="url"],
+input[type="password"] {
+  width: calc(100% - 22px); /* Full width minus padding */
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #1E90FF; /* Blue border for inputs */
+  border-radius: 5px; /* Rounded corners for inputs */
+  background-color: #333; /* Dark background for inputs */
+  color: #fff; /* White text in inputs */
+}
+
+input[type="text"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus {
+  border-color: #1E90FF; /* Blue border on focus */
 }
