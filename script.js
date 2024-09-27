@@ -1,4 +1,4 @@
-const adminPassword = "YourSecretPassword"; // Set your admin password
+const adminPassword = "itzarataka"; // Set your admin password
 
 let isAdmin = localStorage.getItem("isAdmin") === "true";
 let isMember = localStorage.getItem("isMember") === "true";
