@@ -74,7 +74,6 @@ function addAnimeToList(title, genre, image, isAdmin) {
 
   animeList.appendChild(animeCard);
 }
-/* Styles for login buttons */
 #login-choice button {
   padding: 10px 20px;
   margin: 10px;
@@ -84,4 +83,3 @@ function addAnimeToList(title, genre, image, isAdmin) {
 #admin-login-section, #admin-section {
   margin-top: 20px;
 }
-
