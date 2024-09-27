@@ -17,11 +17,13 @@
       <!-- Anime recommendations will be dynamically added here -->
     </section>
 
-    <section id="add-anime">
+    <!-- Admin section -->
+    <section id="admin-section" style="display:none;">
       <h3>Add a New Recommendation</h3>
       <form id="animeForm">
         <input type="text" id="animeTitle" placeholder="Anime Title" required>
-        <textarea id="animeDescription" placeholder="Anime Description" required></textarea>
+        <input type="text" id="animeGenre" placeholder="Anime Genre" required>
+        <input type="url" id="animeImage" placeholder="Image URL" required>
         <button type="submit">Add Anime</button>
       </form>
     </section>
